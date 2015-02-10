@@ -1,0 +1,26 @@
+# hello_world.py
+import tornado.ioloop
+import tornado.web
+
+
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Hello, world")
+
+
+class JsonHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write({
+            'status': 'OK',
+            'text': "Hello, world"
+        })
+
+
+application = tornado.web.Application([
+    (r"/", MainHandler),
+    (r"/json/", JsonHandler),
+])
+
+if __name__ == "__main__":
+    application.listen(8888)
+    tornado.ioloop.IOLoop.instance().start()
